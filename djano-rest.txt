@@ -1,0 +1,63 @@
+
+
+
+
+ ##### Hello-World project ####
+ 
+ 
+ create-project		: django-admin startproject helloworld_project .
+ run project   		: python manage.py runserver
+ 
+ create-applicaion	: python manage.py startapp main_application		|| after creating apps, add this to settings.py-> installed app
+ 
+ 
+ 	from django.urls import path, include								|| add include method
+
+	urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('main_application.urls'))							|| add this include method and apps url  
+	]
+
+
+ + by default, apps folder has no default urls.py file, need to create this -> urls.py at main_application 
+	
+	from django.urls import path
+	from . import views
+
+	urlpatterns = [
+    path('', views.homeView, name='home'),
+	]
+	
+	
+ + at views.py, write below method
+ 
+ from django.http import HttpResponse
+
+	def homeView(request):
+		return HttpResponse("Hello Bangladesh,  from Django Project !!!")
+
+	
+	
+	
+
+ #### Hello-Template project #####
+ 
+ + at views.py  
+
+	from django.views.generic import TemplateView	
+	class homeView(TemplateView):
+		template_name = "index.html"
+ 
+ 
+ + at views.py  
+ 
+	from django.urls import path
+	from . import views
+	urlpatterns = [
+		path('', views.homeView.as_view(), name='home')
+	]
+
+ + create directory name templates-> index.html
+  
+ 
+ 
